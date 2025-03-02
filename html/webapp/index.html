@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+  <title>CrazyGames</title>
+  <script src="https://sdk.crazygames.com/crazygames-sdk-v3.js"></script>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta id="gameViewport" name="viewport" content="width=device-width initial-scale=1">
+  <link href="styles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<script type="module">
+    // Initialize CrazyGames SDK
+    await window.CrazyGames.SDK.init();
+</script>
+<script>
+    // Gameplay start
+    function gameplayStart() {window.CrazyGames.SDK.game.gameplayStart();}
+
+    // Gameplay stop
+    function gameplayStop() {window.CrazyGames.SDK.game.gameplayStop();}
+
+    // Loading start
+    function loadingStart() {window.CrazyGames.SDK.game.loadingStart();}
+
+    // Loading stop
+    function loadingStop() {window.CrazyGames.SDK.game.loadingStop();}
+
+    // Happy time
+    function happyTime() {window.CrazyGames.SDK.game.happytime();}
+
+    // Video ads
+    window.adResult = "";
+    function requestAd(adType) {
+        return new Promise((resolve, reject) => {
+            const callbacks = {
+                adFinished: function() {
+                    console.log("End ad");
+                    window.adResult = "finished";
+                    resolve("finished");
+                    console.log("Updated adResult:", window.adResult);
+                },
+                adError: function(error) {
+                    console.log("Error ad", error);
+                    window.adResult = "error";
+                    reject(error);
+                    console.log("Updated adResult:", window.adResult);
+                },
+                adStarted: function() {
+                    console.log("Ad started");
+                    window.adResult = "started";
+                    console.log("Updated adResult:", window.adResult);
+                }
+            };
+
+            try {
+                window.CrazyGames.SDK.ad.requestAd(adType, callbacks);
+            } catch (e) {
+                console.error("Could not request ad ", e);
+                reject(e);
+            }
+        });
+    }
+</script>
+<a class="superdev" href="javascript:%7B%20window.__gwt_bookmarklet_params%20%3D%20%7B'server_url'%3A'http%3A%2F%2Flocalhost%3A9876%2F'%7D%3B%20var%20s%20%3D%20document.createElement('script')%3B%20s.src%20%3D%20'http%3A%2F%2Flocalhost%3A9876%2Fdev_mode_on.js'%3B%20void(document.getElementsByTagName('head')%5B0%5D.appendChild(s))%3B%7D">&#8635;</a>
+<div align="center" id="embed-html"></div>
+<script type="text/javascript" src="html/html.nocache.js"></script>
+</body>
+
+<script>
+function handleMouseDown(evt) {
+  evt.preventDefault();
+  evt.stopPropagation();
+  window.focus();
+}
+
+function handleMouseUp(evt) {
+  evt.preventDefault();
+  evt.stopPropagation();
+}
+document.addEventListener('contextmenu', event => event.preventDefault());
+document.getElementById('embed-html').addEventListener('mousedown', handleMouseDown, false);
+document.getElementById('embed-html').addEventListener('mouseup', handleMouseUp, false);
+</script>
+</html>
